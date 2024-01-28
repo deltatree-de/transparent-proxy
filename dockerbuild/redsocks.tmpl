@@ -1,0 +1,18 @@
+base {
+  log_debug = off;
+  log_info = off;
+  log = "stderr";
+  daemon = ${RS_DAEMON};
+  user = redsocks;
+  group = redsocks;
+  redirector = iptables;
+}
+
+redsocks {
+  local_ip = ${RS_LISTEN_HOST}; 
+  local_port = ${RS_LISTEN_PORT};
+
+  type = http-connect;
+  ip = ${RS_PROXY_HOST};
+  port = ${RS_PROXY_PORT};
+}
