@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM ubuntu:noble
 
 ENV RS_PROXY_HOST proxy.internal.local
 ENV RS_PROXY_PORT 8080
