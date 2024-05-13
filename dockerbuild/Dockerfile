@@ -1,4 +1,4 @@
-FROM ubuntu:jammy
+FROM ubuntu:20.04
 
 ENV RS_PROXY_HOST proxy.internal.local
 ENV RS_PROXY_PORT 8080
