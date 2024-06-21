@@ -14,6 +14,8 @@ ENV RS_CONF_SH /usr/local/bin/redsocks-create-conf.sh
 ENV RS_SH /usr/local/bin/redsocks.sh
 ENV RS_DAEMON off
 ENV TP_DNS_PORT 53
+ENV RS_LOG_DEBUG off
+ENV RS_LOG_INFO off
 
 ENV DEBIAN_FRONTEND noninteractive
 
