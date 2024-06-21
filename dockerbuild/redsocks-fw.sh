@@ -8,6 +8,9 @@ fw_setup() {
       iptables-legacy -t nat -A REDSOCKS -d $item -j RETURN
   done
 
+  iptables-legacy -t nat -A REDSOCKS -p tcp --dport ${RS_LISTEN_PORT_HTTP} -s ${RS_LISTEN_HOST} -j RETURN
+  iptables-legacy -t nat -A REDSOCKS -p tcp --dport ${RS_LISTEN_PORT_HTTPS} -s ${RS_LISTEN_HOST} -j RETURN
+
   for item in $(echo ${RS_PORTS_HTTP} | sed "s/,/ /g")
   do
       iptables-legacy -t nat -A REDSOCKS -p tcp --dport $item -j DNAT --to-destination ${RS_LISTEN_HOST}:${RS_LISTEN_PORT_HTTP}
