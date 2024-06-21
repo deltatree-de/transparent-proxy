@@ -17,7 +17,11 @@ ENV TP_DNS_PORT 53
 
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt-get update && apt-get install -y redsocks iptables iproute2
+RUN apt-get update && apt-get install -y git iptables iproute2 build-essential libevent-dev libssl-dev
+
+RUN git clone https://github.com/semigodking/redsocks && cd redsocks && make -Wno-deprecated ENABLE_HTTPS_PROXY=true DISABLE_SHADOWSOCKS=true && mv redsocks /usr/sbin/
+
+RUN apt-get purge -y git build-essential libevent-dev libssl-dev && cd .. && rm -rf redsocks
 
 COPY redsocks-fw.sh ${RS_FIREWALL_SH}
 COPY redsocks.sh ${RS_SH}
