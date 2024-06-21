@@ -6,7 +6,7 @@ ENV RS_LISTEN_PORT 12345
 ENV RS_WHITELIST 10.0.0.0/8,127.0.0.0/8,172.16.0.0/12,192.168.0.0/16
 ENV RS_PORTS 80,443
 ENV RS_CONF /tmp/redsocks.conf
-ENV RS_BIN /usr/sbin/redsocks
+ENV RS_BIN /usr/sbin/redsocks2
 ENV RS_TEMPLATE /etc/redsocks.tmpl
 ENV RS_FIREWALL_SH /usr/local/bin/redsocks-fw.sh
 ENV RS_DNS_FW_SH /usr/local/bin/dns-fw.sh
@@ -19,7 +19,7 @@ ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update && apt-get install -y git iptables iproute2 build-essential libevent-dev libssl-dev
 
-RUN git clone https://github.com/semigodking/redsocks && cd redsocks && make -Wno-deprecated ENABLE_HTTPS_PROXY=true DISABLE_SHADOWSOCKS=true && mv redsocks /usr/sbin/
+RUN git clone https://github.com/semigodking/redsocks && cd redsocks && make -Wno-deprecated ENABLE_HTTPS_PROXY=true DISABLE_SHADOWSOCKS=true && mv redsocks2 /usr/sbin/
 
 RUN apt-get purge -y git build-essential libevent-dev libssl-dev && cd .. && rm -rf redsocks
 
