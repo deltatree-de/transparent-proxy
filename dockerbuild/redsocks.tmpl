@@ -9,11 +9,9 @@ base {
 }
 
 redsocks {
-  splice = false;
-  local_ip = ${RS_LISTEN_HOST}; 
-  local_port = ${RS_LISTEN_PORT};
+  #splice = false;
+  bind = "${RS_LISTEN_HOST}:${RS_LISTEN_PORT}"; 
 
   type = http-connect;
-  ip = ${RS_PROXY_HOST};
-  port = ${RS_PROXY_PORT};
+  relay = "${RS_PROXY_HOST}i:${RS_PROXY_PORT}";
 }
