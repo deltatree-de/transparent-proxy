@@ -8,9 +8,23 @@ fw_setup() {
       iptables -t nat -A REDSOCKS -d $item -j RETURN
   done
 
-  for item in $(echo ${RS_PORTS} | sed "s/,/ /g")
+  for item in $(echo ${RS_PORTS_HTTP} | sed "s/,/ /g")
   do
-      iptables -t nat -A REDSOCKS -p tcp --dport $item -j DNAT --to-destination ${RS_LISTEN_HOST}:${RS_LISTEN_PORT}
+      iptables -t nat -A REDSOCKS -p tcp --dport $item -j DNAT --to-destination ${RS_LISTEN_HOST}:${RS_LISTEN_PORT_HTTP}
+
+      if [ -z "${RS_TARGET_NET}" ]
+      then
+        iptables -t nat -A PREROUTING -p tcp --dport $item -j REDSOCKS
+        iptables -t nat -A OUTPUT -p tcp --dport $item -j REDSOCKS
+      else
+        iptables -t nat -A PREROUTING -i ${RS_TARGET_NET} -p tcp --dport $item -j REDSOCKS
+        iptables -t nat -A OUTPUT -i ${RS_TARGET_NET} -p tcp --dport $item -j REDSOCKS
+      fi
+  done
+
+  for item in $(echo ${RS_PORTS_HTTPS} | sed "s/,/ /g")
+  do
+      iptables -t nat -A REDSOCKS -p tcp --dport $item -j DNAT --to-destination ${RS_LISTEN_HOST}:${RS_LISTEN_PORT_HTTPS}
 
       if [ -z "${RS_TARGET_NET}" ]
       then
