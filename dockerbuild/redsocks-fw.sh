@@ -19,6 +19,8 @@ fw_setup() {
   done
 
   iptables -t nat -A OUTPUT -p tcp -j REDSOCKS
+
+  iptables ! -o lo -t nat -A POSTROUTING -j MASQUERADE
 }
 
 fw_clear() {
